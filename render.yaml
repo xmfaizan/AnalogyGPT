@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: analogygpt-backend
+    env: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port 10000
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11
+      # Add your other environment variables here if needed:
+      # - key: OPENAI_API_KEY
+      #   value: your-api-key
+
+  - type: web
+    name: analogygpt-frontend
+    env: static
+    plan: free
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: build
+    autoDeploy: true
